@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow: hidden;
+        }
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -70%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+        .logo img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .login-container h2 {
+            margin-bottom: 10px;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .login-container p.subtitle {
+            margin-top: -10px;
+            margin-bottom: 20px;
+            color: #bbb;
+            font-size: 14px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"],
+        .login-container input[type="number"],
+        .login-container input[type="date"] {
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 30px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s ease;
+            color: #333;
+        }
+        .login-container input:focus {
+            background-color: rgba(255, 255, 255, 1);
+            outline: none;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff6b6b;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-container button:hover {
+            background-color: #ff4f4f;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 10px;
+        }
+        .modal-edad,
+        .modal-terminos {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 600px;
+            width: 90%;
+            height: 80%;
+            overflow-y: auto;
+            display: flex;
+        }
+        .modal-content p {
+            margin: 0 0 10px;
+        }
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+        .close-button {
+            background-color: #ff6b6b;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function registrarUsuario(event) {
+            event.preventDefault();
+
+            const url = "https://script.google.com/macros/s/AKfycbxBhQdIGbubuKx-DH2YIs0NRXLwkKtUwdrTjOYxjE4y0l08-7EAW4cfJhdf6VlcPlWAwg/exec";
+            const nombre = document.getElementById('username').value;
+            const contrasena = document.getElementById('password').value;
+            const confirmarContrasena = document.getElementById('confirmPassword').value;
+            const telefono = document.getElementById('telefono').value;
+            const monto = document.getElementById('monto').value;
+            const fechaNacimiento = new Date(document.getElementById('fechaNacimiento').value);
+            const checkbox = document.getElementById('termsCheckbox').checked;
+
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+                edad--;
+            }
+
+            if (!checkbox) {
+                alert("Debe aceptar los términos y condiciones.");
+                return;
+            }
+
+            if (edad < 18) {
+                document.getElementById('mensajeEdad').style.display = 'flex';
+                return;
+            }
+
+            if (!nombre || !contrasena || !telefono || !monto || contrasena !== confirmarContrasena) {
+                alert("Por favor complete todos los campos y asegúrese de que las contraseñas coincidan.");
+                return;
+            }
+
+            const data = { nombre, contrasena, telefono, monto };
+            
+            fetch(url, {
+                method: "POST",
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(() => {
+                const params = new URLSearchParams(data).toString();
+                window.location.href = `confirmacion.html?${params}`;
+            }).catch(error => {
+                console.error("Error al registrar el usuario:", error);
+            });
+        }
+
+        function mostrarTerminos() {
+            document.getElementById('modalTerminos').style.display = 'flex';
+        }
+
+        function cerrarTerminos() {
+            document.getElementById('modalTerminos').style.display = 'none';
+        }
+
+        function cerrarMensajeEdad() {
+            document.getElementById('mensajeEdad').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <video autoplay muted loop id="bg-video">
+        <source src="fondo.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+    <div class="login-container">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <h2>Registrarse</h2>
+        <p class="subtitle">Estos datos no se divulgarán.</p>
+        <form onsubmit="registrarUsuario(event)">
+            <input type="text" id="username" name="username" placeholder="Usuario" required>
+            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Contraseña" required>
+            <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required>
+            <input type="number" id="monto" name="monto" placeholder="Monto a Cargar" required>
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="termsCheckbox">
+                <label for="termsCheckbox">Aceptar <a href="#" onclick="mostrarTerminos()">términos y condiciones</a></label>
+            </div>
+            
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+
+    <div id="mensajeEdad" class="modal-edad">
+        <div class="modal-content">
+            <p>No es posible registrar, no cumples los requisitos de edad mínima.</p>
+            <button class="close-button" onclick="cerrarMensajeEdad()">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="modalTerminos" class="modal-terminos">
+        <div class="modal-content">
+            <div class="column">
+                <p><strong>Términos y Condiciones del Casino Virtual</strong></p>
+                <p>1. Aceptación de Términos: Al acceder y utilizar nuestro casino virtual, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguno de los términos, por favor, no uses nuestros servicios.</p>
+                <p>2. Edad Legal: Debes tener al menos 18 años para participar en las actividades del casino virtual. La verificación de edad puede ser requerida.</p>
+                <p>3. Registro: Es obligatorio registrarse para participar. La información proporcionada debe ser veraz y precisa.</p>
+                <p>4. Responsabilidad: Eres responsable de mantener la confidencialidad de tus datos de inicio de sesión y de todas las actividades realizadas bajo tu cuenta.</p>
+                <p>5. Prohibición de Uso: No está permitido utilizar el casino virtual para fines ilegales o fraudulentos.</p>
+                <p>6. Cambios en los Términos: Nos reservamos el derecho de modificar estos términos en cualquier momento. Las modificaciones serán efectivas inmediatamente después de su publicación en el sitio.</p>
+                <p>7. Reembolso: No garantizamos reembolsos por pérdidas en el juego. Juegas bajo tu propio riesgo.</p>
+                <p>8. Propiedad Intelectual: Todo el contenido del casino virtual es propiedad exclusiva de nuestra empresa. No está permitido reproducir, distribuir ni modificar sin autorización.</p>
+                <p>9. Resolución de Conflictos: Cualquier disputa se resolverá de acuerdo a las leyes vigentes en nuestro país de operación.</p>
+                <p>10. Política de Privacidad: Tu información personal será tratada conforme a nuestra política de privacidad, que está disponible en el sitio web.</p>
+                <p>11. Modificaciones a los Servicios: Nos reservamos el derecho de suspender o modificar los servicios en cualquier momento sin previo aviso.</p>
+                <p>12. Aceptación de Riesgos: Al participar, reconoces que el juego implica riesgos y que puedes perder dinero. Juegas bajo tu propio riesgo.</p>
+            </div>
+            <button class="close-button" onclick="cerrarTerminos()">Cerrar</button>
+        </div>
+    </div>
+</body>
+</html>

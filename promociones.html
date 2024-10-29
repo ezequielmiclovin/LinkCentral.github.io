@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Estilos para la barra superior */
+        .top-bar {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Espaciado entre elementos */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+
+        .top-bar img {
+            height: 40px;
+        }
+
+        .top-bar .slogan {
+            font-family: 'DRAGON HUNTER', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffe66d;
+        }
+
+        .top-bar .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-bar .menu a {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .top-bar .menu a:hover {
+            text-decoration: underline;
+        }
+
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        /* Estilo para el cuadro que contiene la imagen */
+        .image-box {
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+            padding: 20px; /* Espaciado alrededor de la imagen */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Sombra alrededor del cuadro */
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            margin-top: 80px; /* Espacio desde la barra superior */
+        }
+
+        .promo-image {
+            width: 400px; /* Establecer un ancho fijo */
+            height: auto; /* Mantener la relación de aspecto */
+        }
+        
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ff4f4f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra negra superior -->
+    <div class="top-bar">
+        <img src="logo.png" alt="Logo" />
+        <div class="slogan">Con Zeus es ganancia</div>
+        <div class="menu">
+            <a href="confirmacion.html">Volver al Inicio</a>
+        </div>
+    </div>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="fondo.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+
+    <div class="image-box"> <!-- Contenedor para la imagen -->
+        <img src="oferta1.jpg" alt="Oferta" class="promo-image"> <!-- Imagen ajustada -->
+    </div>
+
+    <button class="back-button" onclick="window.location.href='confirmacion.html'">Volver al Inicio</button>
+</body>
+</html>

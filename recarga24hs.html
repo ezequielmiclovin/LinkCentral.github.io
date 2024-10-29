@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recarga 24hs</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden; /* Para evitar el scroll en el video */
+        }
+
+        /* Estilos para la barra superior */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+
+        .login-button {
+            background-color: #28a745; /* Verde */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 20px; /* Bordes redondeados */
+            color: white; /* Texto blanco */
+        }
+
+        .slogan {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block; /* Para mostrar el dropdown correctamente */
+        }
+
+        .dropbtn {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block; /* Muestra el contenido cuando el dropdown tiene la clase 'show' */
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Estilos para el video de fondo */
+        #bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Contenedor del contenido principal */
+        .recarga-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1; /* Asegurarse de que el contenido esté por encima del video */
+            height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+        }
+
+        .contact-box {
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semi-transparente */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px; /* Bordes redondeados */
+            text-align: center; /* Centrar el texto */
+            width: 80%; /* Ancho del box */
+            max-width: 600px; /* Ancho máximo del box */
+        }
+
+        .contact-box p {
+            color: white; /* Texto de la frase en blanco */
+        }
+
+        .cajero-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #333; /* Fondo negro */
+            color: white; /* Texto blanco */
+            border: none;
+            border-radius: 20px; /* Bordes redondeados */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        /* Media Queries para adaptabilidad */
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+                align-items: flex-start; /* Alinear a la izquierda */
+            }
+
+            .login-button {
+                margin-bottom: 10px; /* Espacio entre el botón y la slogan */
+                width: 100%; /* Botón ocupa todo el ancho */
+            }
+
+            .slogan {
+                text-align: left; /* Alinear texto a la izquierda */
+                width: 100%; /* Ancho completo */
+            }
+
+            .recarga-container {
+                padding: 10px; /* Menos padding en móviles */
+            }
+
+            .contact-box {
+                width: 90%; /* Ancho del box más grande en móviles */
+            }
+
+            .cajero-button {
+                width: 90%; /* Botones de cajero más anchos */
+                text-align: center; /* Centrar texto del botón */
+            }
+        }
+    </style>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Cierra el dropdown si se hace clic fuera de él
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                const dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === "block") {
+                        openDropdown.style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <button class="login-button" onclick="window.location.href='https://casinozeus.icu/'">INICIAR SESIÓN</button>
+        <div class="slogan">
+            <p>Con Zeus es ganancia</p>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">Contactar al Cajero/a</button>
+            <div class="dropdown-content">
+                <a href="https://wa.me/qr/APHRB33ZARANJ1">Walter</a>
+                <a href="https://wa.me/qr/3SP3UPZDAAZXG1">Jimena</a>
+                <a href="https://wa.me/qr/N74ONQSTNV3VJ1">Vanesa</a>
+                <a href="https://wa.me/qr/7CLP3ZOUYYZKM1">Faustino</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video de fondo -->
+    <video autoplay muted loop id="bg-video">
+        <source src="fondo.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+
+    <!-- Contenedor del contenido principal -->
+    <div class="recarga-container">
+        <!-- Nuevo Box para contactar a los cajeros -->
+        <div class="contact-box">
+            <p>Para poder cargar, puedes contactar a alguno de nuestros cajeros que te dejamos por acá abajo.</p>
+            <p>(Recorda que cargamos las 24Hs)</p>
+        </div>
+        <div class="cajeros">
+            <a href="https://wa.me/qr/APHRB33ZARANJ1" class="cajero-button">Walter</a>
+            <a href="https://wa.me/qr/N74ONQSTNV3VJ1" class="cajero-button">Vanesa</a>
+            <a href="https://wa.me/qr/3SP3UPZDAAZXG1" class="cajero-button">Jimena</a>
+            <a href="https://wa.me/qr/7CLP3ZOUYYZKM1" class="cajero-button">Faustino</a>
+        </div>
+    </div>
+</body>
+</html>

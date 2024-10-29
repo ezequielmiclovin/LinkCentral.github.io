@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+
+        .top-bar img {
+            height: 40px;
+            position: absolute;
+            left: 20px;
+        }
+
+        .top-bar .slogan {
+            font-family: 'DRAGON HUNTER', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffe66d;
+            margin: 0 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .menu-bar {
+            background-color: #000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            position: fixed;
+            width: 100%;
+            top: 50px;
+            z-index: 9;
+        }
+
+        .menu-bar a {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .menu-bar a:hover {
+            text-decoration: underline;
+        }
+
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        .confirmation-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .client-data {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .client-data button {
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: white;
+            border: none;
+            border-radius: 30px;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .client-data button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .how-to-box {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            max-width: 600px;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 15;
+        }
+
+        .confirmation-container button,
+        .how-to-box button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .confirmation-container .blink {
+            animation: blink 1s infinite;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -70%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .step-button {
+            background-color: white;
+            color: black;
+            border-radius: 30px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .top-bar .slogan {
+                font-size: 20px;
+            }
+
+            .confirmation-container {
+                padding: 20px;
+            }
+
+            .client-data {
+                font-size: 14px;
+            }
+
+            .client-data button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <script>
+        function copiarAlPortapapeles() {
+            const nombre = document.getElementById('nombreCliente').innerText;
+            const telefono = document.getElementById('telefonoCliente').innerText;
+            const monto = document.getElementById('montoCliente').innerText;
+
+            const textoCompleto = `Nombre: ${nombre}\nTeléfono: ${telefono}\nMonto: ${monto}`;
+            navigator.clipboard.writeText(textoCompleto).then(() => {
+                alert("Información copiada al portapapeles.");
+            });
+        }
+
+        function mostrarInstrucciones() {
+            document.querySelector(".overlay").style.display = "block";
+            document.querySelector(".how-to-box").style.display = "block";
+        }
+
+        function cerrarInstrucciones() {
+            document.querySelector(".overlay").style.display = "none";
+            document.querySelector(".how-to-box").style.display = "none";
+        }
+
+        function recibirDatosDesdeLogin() {
+            const urlParams = new URLSearchParams(window.location.search);
+            document.getElementById('nombreCliente').innerText = urlParams.get('nombre') || 'No especificado';
+            document.getElementById('telefonoCliente').innerText = urlParams.get('telefono') || 'No especificado';
+            document.getElementById('montoCliente').innerText = urlParams.get('monto') || 'No especificado';
+        }
+
+        window.onload = function() {
+            recibirDatosDesdeLogin();
+        }
+    </script>
+</head>
+<body>
+    <div class="top-bar">
+        <img src="logo.png" alt="Logo" />
+        <div class="slogan">Con Zeus es ganancia</div>
+    </div>
+
+    <div class="menu-bar">
+        <a href="https://wa.me/qr/APHRB33ZARANJ1" target="_blank">Contáctanos</a>
+        <a href="recarga24hs.html">Recarga 24hs</a>
+        <a href="promociones.html">Promociones y ofertas</a>
+    </div>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="fondo.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+
+    <div class="confirmation-container">
+        <h1 class="blink">20% BONUS EN TU PRIMERA CARGA</h1>
+        
+        <div class="client-data">
+            <p>Nombre: <span id="nombreCliente"></span></p>
+            <p>Teléfono: <span id="telefonoCliente"></span></p>
+            <p>Monto: <span id="montoCliente"></span></p>
+            <button onclick="copiarAlPortapapeles()">Copiar Todos los Datos</button>
+            <p style="font-size: 12px;">Esta opción queda guardada en tu portapapeles, envíaselo al cajero@.</p>
+            <button onclick="mostrarInstrucciones()">¿como comenzar a jugar?</button>
+        </div>
+
+        <p style="margin-top: 20px;">Para cargar fichas dirigirse a <strong>Recarga 24hs</strong></p>
+        <button onclick="window.location.href='recarga24hs.html'" style="margin-top: 20px;">Recarga 24Hs</button>
+        <a href="https://wa.me/qr/APHRB33ZARANJ1" target="_blank" style="color: #ffe66d; display: block; margin-top: 10px;">Atención al Cliente</a>
+    </div>
+
+    <div class="overlay" onclick="cerrarInstrucciones()"></div>
+    <div class="how-to-box">
+        <h2>Instrucciones para cargar fichas</h2>
+        <ol>
+            <li>Una vez que hayas copiado los datos, dirigirse a <strong>Recarga 24hs</strong>.</li>
+            <li>Preciona el boton "Recarga 24Hs"</li>
+            <li>Elegi el cajero que quieras para poder comunicarte. (recorda enviarle la informacion copiada previamente)</li>
+            <li>Iniciar conversacion, y lo mas importane !!!GANAR¡¡¡.</li>
+            <li>Si tienes problemas, contáctanos a través de WhatsApp en el apartado "contactanos o ayuda al cliente".</li>
+        </ol>
+        <button onclick="cerrarInstrucciones()">Cerrar</button>
+    </div>
+</body>
+</html>

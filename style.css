@@ -1,0 +1,142 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    overflow: hidden;
+}
+
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+
+/* Estilos para la barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10; /* Asegura que la barra esté encima del video */
+}
+
+.login-button {
+    background-color: #4CAF50; /* Color de fondo del botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px; /* Hacer el botón redondeado */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-button:hover {
+    background-color: #45a049; /* Color de fondo al pasar el mouse */
+}
+
+.slogan {
+    flex-grow: 1; /* Permitir que el eslogan use el espacio disponible */
+    text-align: center; /* Centrar el eslogan */
+    font-style: italic; /* Cursiva */
+    font-size: 20px; /* Tamaño del eslogan */
+}
+
+/* Estilo para el menú desplegable */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 40px; /* Separar el menú desplegable de la izquierda */
+}
+
+.dropbtn {
+    background-color: black; /* Fondo del botón desplegable */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Color al pasar el mouse */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Mostrar el menú al pasar el mouse */
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41; /* Color del botón al pasar el mouse */
+}
+
+/* Contenedor principal */
+.recarga-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.info-text {
+    width: 50%;
+    font-size: 16px; /* Aumentar tamaño de texto en un 15% */
+    line-height: 1.4;
+    padding-right: 20px;
+}
+
+.image-slider {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.slider-image {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    max-width: 300px; /* Aumentar tamaño de las imágenes para que sean más grandes */
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slider-image.active {
+    opacity: 1;
+}
